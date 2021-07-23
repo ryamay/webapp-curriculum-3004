@@ -10,4 +10,13 @@ object FutureTaskForLatch extends App {
     })
   futureTasks.foreach((f) => new Thread(f).start())
 
+  new Thread({ () =>
+    println("waiting...")
+    await
+    println("START!!")
+  }).start()
+
+  def await = {
+    futureTasks.foreach(f => f.get())
+  }
 }
